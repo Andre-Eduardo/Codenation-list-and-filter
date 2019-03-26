@@ -19,10 +19,7 @@ class App extends Component {
         <Navbar />
         <div className="container mt-10">
           <div className="row">
-            <RecipeItem reciple={this.recipes.map(reciple => {return reciple;})} />
-            <RecipeItem />
-            <RecipeItem />
-            <RecipeItem />
+          {this.recipes.map(reciple =>{return <RecipeItem reciple={reciple}></RecipeItem >})}
           </div>
         </div>
       </div>
