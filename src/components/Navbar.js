@@ -14,7 +14,7 @@ class Navbar extends React.Component{
         this.setState({value: event.target.value});
         //if(!this.value.length) return;
     
-        localStorage.setItem('@GoTwitter:username', event.target.value);
+    
 
         
     }
