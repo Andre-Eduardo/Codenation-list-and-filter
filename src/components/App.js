@@ -9,13 +9,26 @@ class App extends Component {
 
     this.recipes = recipes.results;
     this.state = {
-      searchString: 'b'
+      searchString: 'salt'
     };
   }
 
   filterSearchBar = (searchString) =>{
+    
 //console.log( this.recipes.map(recipe =>{return ((recipe.title.toUpperCase()).indexOf(this.state.searchString.toUpperCase()) != -1)}))
-   
+    var result = this.recipes.filter((result)=>{
+      if(result.title.includes(this.state.searchString)){
+           return true;
+
+      }if(result.ingredients.includes(this.state.searchString)){
+        return true;
+      }else{
+        return false;
+      }
+
+     
+   })
+   console.log(result)
   }
   render() { 
     return (
@@ -24,14 +37,14 @@ class App extends Component {
         <div className="container mt-10">
           <div className="row">
             {(() => {
-              if((this.state.searchString.localeCompare('') != 0)){
-                 return this.recipes.map((reciple, id) =>{return <RecipeItem reciple={reciple} key={id} ></RecipeItem >});
+              if((this.state.searchString.localeCompare('') !== 0)){
+                return this.recipes.map((recipe, id) =>{return <RecipeItem recipe={recipe} key={id} ></RecipeItem >});
                 
               }else{
-                return this.recipes.map((reciple, id) =>{return <RecipeItem reciple={reciple} key={id} ></RecipeItem >});
+                
               }
             })()}
-          
+          {this.filterSearchBar()}
           
           </div>
         </div>
