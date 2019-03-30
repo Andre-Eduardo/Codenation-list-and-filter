@@ -9,43 +9,54 @@ class App extends Component {
 
     this.recipes = recipes.results;
     this.state = {
-      searchString: 'salt'
+      searchString: '',
     };
   }
 
   filterSearchBar = (searchString) =>{
-    
-//console.log( this.recipes.map(recipe =>{return ((recipe.title.toUpperCase()).indexOf(this.state.searchString.toUpperCase()) != -1)}))
-    var result = this.recipes.filter((result)=>{
-      if(result.title.includes(this.state.searchString)){
-           return true;
-
-      }if(result.ingredients.includes(this.state.searchString)){
+   var result = this.recipes.filter((result)=>{
+      if(result.title.toLowerCase().includes(this.state.searchString.toLowerCase())){
+       // console.log(result.title);
         return true;
+        
+        
+      }if(result.ingredients.toLowerCase().includes(this.state.searchString.toLowerCase())){
+        //console.log(result.ingredients);
+        return true;
+        
       }else{
         return false;
-      }
-
-     
+      } 
    })
-   console.log(result)
+   
+   return result;
+
   }
+  mapItems =() =>{
+    var itens =this.filterSearchBar();
+    console.log(itens);
+    return itens.map((item, id) =>{ return <RecipeItem item={item} key={id}  highlight={this.state.searchString}></RecipeItem >});
+  }
+  passValue=(event)=>{
+    this.setState({searchString:event});
+    
+  }
+ 
   render() { 
+    
     return (
       <div className="App">
-        <Navbar />
+        <Navbar passValue ={this.passValue.bind(this)} />
         <div className="container mt-10">
           <div className="row">
             {(() => {
               if((this.state.searchString.localeCompare('') !== 0)){
-                return this.recipes.map((recipe, id) =>{return <RecipeItem recipe={recipe} key={id} ></RecipeItem >});
-                
+                return this.mapItems();
               }else{
-                
+               
+                return this.recipes.map((recipe, id) =>{return <RecipeItem item={recipe} key={id} highlight={this.state.searchString} ></RecipeItem >});
               }
             })()}
-          {this.filterSearchBar()}
-          
           </div>
         </div>
       </div>

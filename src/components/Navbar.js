@@ -10,10 +10,8 @@ class Navbar extends React.Component{
       }
 
     handleInputChange = (event) => {
-        
-        this.setState({value: event.target.value});
-        //if(!this.value.length) return;
-    
+     
+        this.props.passValue(event.target.value)
     
 
         
